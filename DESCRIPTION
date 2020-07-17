@@ -27,5 +27,6 @@ Imports:
     RefManageR,
     rlang,
     rmarkdown,
+    spelling,
     stringr,
     tidyr

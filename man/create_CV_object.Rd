@@ -7,7 +7,6 @@
 create_CV_object(
   data_location,
   source_location = "github.com/mps9506",
-  pdf_mode = FALSE,
   sheet_is_publicly_readable = TRUE
 )
 }
@@ -18,9 +17,6 @@ data types or a path to a folder containing four \code{.csv}s with the neccesary
 data.}
 
 \item{source_location}{Where is the code to build your CV hosted?}
-
-\item{pdf_mode}{Is the output being rendered into a pdf? Aka do links need
-to be stripped?}
 
 \item{sheet_is_publicly_readable}{If you're using google sheets for data,
 is the sheet publicly available? (Makes authorization easier.)}

@@ -12,28 +12,34 @@ build_cv(
   conference = NULL,
   software = NULL,
   datasets = NULL,
+  rmd_template = c("svm_cv"),
   output_file_name = "cv.pdf",
-  output_dir = getwd()
+  output_dir = getwd(),
+  spell_check = FALSE
 )
 }
 \arguments{
-\item{full_name}{My name}
+\item{full_name}{character string, my name.}
 
-\item{data_location}{character, link to google sheets}
+\item{data_location}{character string, link to google sheets document.}
 
-\item{peer_review}{Object of class \code{BibEntry}}
+\item{peer_review}{Object of class \code{BibEntry}.}
 
-\item{tech_report}{Object of class \code{BibEntry}}
+\item{tech_report}{Object of class \code{BibEntry}.}
 
-\item{conference}{Object of class \code{BibEntry}}
+\item{conference}{Object of class \code{BibEntry}.}
 
-\item{software}{Object of class \code{BibEntry}}
+\item{software}{Object of class \code{BibEntry}.}
 
-\item{datasets}{Object of class \code{BibEntry}}
+\item{datasets}{Object of class \code{BibEntry}.}
 
-\item{output_file_name}{what should the output doc name be}
+\item{rmd_template}{character string indicating path to rmarkdown template or one of \code{c(svm_cv)}.}
 
-\item{output_dir}{output directory, defaults to current working directory}
+\item{output_file_name}{character string for the name of the output document.}
+
+\item{output_dir}{character string for the name of the output directory, defaults to current working directory.}
+
+\item{spell_check}{logical use the spell_check package to spell check output? defaults to FALSE}
 }
 \value{
 files written to the current directory
