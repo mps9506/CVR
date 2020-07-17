@@ -1,0 +1,109 @@
+---
+title: "CV"
+author: "`r full_name`"
+email: mpschramm@gmail.com
+fontfamily: mathpazo
+fontfamilyoptions: sc, osf
+fontsize: 11pt
+linkcolor: blue
+urlcolor: blue
+geometry: margin=1in
+github: mps9506
+fontawesome: yes
+phone: 910 232-3760
+address: 578 John Kimbrough Blvd · 2260 TAMU · College Station, TX 77843
+updated: no
+bibliography_peer_review: peer_review.bib
+bibliography_tech_report: tech_report.bib
+bibliography_conference: conference.bib
+bibliography_software: software.bib
+bibliography_datasets: datasets.bib
+nocite: '@*'
+csl: "`r csl_loc`"
+---
+```{r, include=FALSE}
+knitr::opts_chunk$set(
+  results='asis', 
+  echo = FALSE
+)
+library(magrittr) # For the pipe
+```
+
+## Research Experience
+
+```{r}
+cv_data %<>% CVR:::print_section('research_positions')
+```
+
+## Education
+```{r}
+cv_data %<>% CVR:::print_section('education')
+```
+
+## Research Area
+```{r}
+cv_data %<>% CVR:::print_text_block('research')
+```
+
+## Skills
+```{r}
+cv_data %<>% CVR:::print_text_block('skills')
+```
+
+## Peer Reviewed Articles
+::: {#refs_peer_review}
+:::
+
+
+## Technical Reports
+::: {#refs_tech_report}
+:::
+
+## Presentations
+::: {#refs_conference}
+:::
+
+## Published Software
+::: {#refs_software}
+:::
+
+## Published Datasets
+::: {#refs_datasets}
+:::
+
+
+## Grants and Projects
+```{r}
+cv_data %<>% CVR:::print_section('grant_project',
+                           glue_template = "
+{timeline} *{institution}*: {title}. Amount: {loc}. {description_bullets} \n\n
+")
+```
+
+## Awards and Honors
+
+```{r}
+cv_data %<>% CVR:::print_section('awards',
+                           glue_template = "
+{title} \n\n
+")
+```
+
+## Service
+
+### Review committees
+```{r}
+cv_data %<>% CVR:::print_section('committee',
+                           glue_template = "
+{timeline}: {title} \n\n
+")
+```
+
+### Peer review
+```{r}
+cv_data %<>% CVR:::print_section('j_peer_review',
+                           glue_template = "
+*{title}* \n\n
+")
+```
+

@@ -1,0 +1,31 @@
+Package: CVR
+Title: Generate My CV
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Michael",
+           family = "Schramm",
+           role = c("aut", "cre"),
+           email = "michael.schramm@ag.tamu.edu",
+           comment = c(ORCID = "0000-0003-1876-6592"))
+Description: Heavily based on datadrivencv, vitae, and RefManageR. Maintain cv data in googlesheets and Zotero, generate the CV in R.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.0
+Imports: 
+    bookdown,
+    dplyr,
+    fs,
+    glue,
+    googlesheets4,
+    knitr,
+    lubridate,
+    magrittr,
+    purrr,
+    readr,
+    RefManageR,
+    rlang,
+    rmarkdown,
+    stringr,
+    tidyr
