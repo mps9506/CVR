@@ -14,7 +14,7 @@ nocite: '@*'
 csl: "`r csl_loc`"
 ---
 ```{r, include=FALSE}
-options(tinytex.clean = FALSE)
+options(tinytex.clean = TRUE)
 knitr::opts_chunk$set(
   results='asis', 
   echo = FALSE

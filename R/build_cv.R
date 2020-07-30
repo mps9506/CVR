@@ -139,12 +139,12 @@ build_cv <- function(full_name = "Michael Schramm",
                                               template = tex_loc,
                                               number_sections = FALSE,
                                               pandoc_args = pandoc_args,
-                                              keep_tex = TRUE,
+                                              keep_tex = FALSE,
                                               md_extensions = "-autolink_bare_uris+raw_attribute"),
                       output_file = output_file_name,
                       output_dir = output_dir,
                       intermediates_dir = output_dir,
-                      clean = FALSE)
+                      clean = TRUE)
   }
 
 
@@ -153,8 +153,16 @@ build_cv <- function(full_name = "Michael Schramm",
                       output_dir = output_dir,
                       intermediates_dir = output_dir)
   }
+
+  ## spell check
   if (spell_check) {
     spelling::spell_check_files(path = paste0(output_dir, output_file_name))
+  }
+
+  ## clean up any generated files
+  file.remove(fs::path(output_dir, files))
+  if (rmd_template == "yaac") {
+    unlink(fs::path(output_dir, "fonts"), recursive = TRUE)
   }
 
   on.exit(options(old_options), add = TRUE)
