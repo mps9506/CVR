@@ -12,10 +12,14 @@ build_cv(
   conference = NULL,
   software = NULL,
   datasets = NULL,
-  rmd_template = c("svm_cv"),
+  rmd_template = c("svm_cv", "yaac"),
   output_file_name = "cv.pdf",
   output_dir = getwd(),
-  spell_check = FALSE
+  spell_check = FALSE,
+  yml = list(title = "CV", author = "Michael Schramm", firstname = "Michael", lastname
+    = "Schramm", github = "mps9506", phone = "910-232-3760", address = "Bryan, Texas",
+    email = "mpschramm@gmail.com", tagline =
+    "Researcher | Water Quality, Watersheds, and Policy")
 )
 }
 \arguments{
@@ -33,13 +37,15 @@ build_cv(
 
 \item{datasets}{Object of class \code{BibEntry}.}
 
-\item{rmd_template}{character string indicating path to rmarkdown template or one of \code{c(svm_cv)}.}
+\item{rmd_template}{character string indicating path to rmarkdown template or one of \code{c('svm_cv', 'yaac')}.}
 
 \item{output_file_name}{character string for the name of the output document.}
 
 \item{output_dir}{character string for the name of the output directory, defaults to current working directory.}
 
 \item{spell_check}{logical use the spell_check package to spell check output? defaults to FALSE}
+
+\item{yml}{named list of some yml parameters to pass to the rmd. There is probably a better way to do this.}
 }
 \value{
 files written to the current directory

@@ -4,7 +4,7 @@
 \alias{print_section}
 \title{Print Section}
 \usage{
-print_section(cv, section_id, glue_template = "default")
+print_section(cv, section_id, glue_template = "default", latexify = FALSE)
 }
 \arguments{
 \item{cv}{output from create_cv_object}
@@ -12,6 +12,8 @@ print_section(cv, section_id, glue_template = "default")
 \item{section_id}{ID of the entries section to be printed as encoded by the \code{section} column of the \code{entries} table}
 
 \item{glue_template}{glue string}
+
+\item{latexify}{logical, convert strings to latex? default = \code{FALSE}}
 }
 \value{
 formatted string

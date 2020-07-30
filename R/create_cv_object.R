@@ -1,4 +1,6 @@
-## These functions are from the datadrivencv package by n.tierney
+# create_cv_object is a modified version of the create_cv_object function in
+# Nick Strayer's datadrivencv package: https://github.com/nstrayer/datadrivencv
+# and licensed under the MIT License
 
 #' Create a CV_Printer object.
 #'
@@ -45,6 +47,8 @@ create_CV_object <-  function(data_location,
   cv$skills        <- read_gsheet(sheet_id = "language_skills")
   cv$text_blocks   <- read_gsheet(sheet_id = "text_blocks")
   cv$contact_info  <- read_gsheet(sheet_id = "contact_info")
+  cv$skills_block  <- read_gsheet(sheet_id = "skills_block")
+
 
 
   extract_year <- function(dates){
@@ -68,11 +72,11 @@ create_CV_object <-  function(data_location,
     tidyr::unite(
       tidyr::starts_with('description'),
       col = "description_bullets",
-      sep = "\n- ",
+      sep = " \\item ",
       na.rm = TRUE
     ) %>%
     dplyr::mutate(
-      description_bullets = ifelse(.data$description_bullets != "", paste0("- ", .data$description_bullets), ""),
+      description_bullets = ifelse(.data$description_bullets != "", paste0(" \\item ", .data$description_bullets), ""),
       start = ifelse(.data$start == "NULL", NA, .data$start),
       end = ifelse(.data$end == "NULL", NA, .data$end),
       start_year = extract_year(.data$start),
@@ -94,6 +98,9 @@ create_CV_object <-  function(data_location,
   cv
 }
 
+# print_section is a modified version of the print_section function in
+# Nick Strayer's datadrivencv package: https://github.com/nstrayer/datadrivencv
+# and licensed under the MIT License
 
 #' @title Print Section
 #' @description Take a position data frame and the section id desired and prints the section to markdown.
@@ -101,13 +108,18 @@ create_CV_object <-  function(data_location,
 #' @param cv output from create_cv_object
 #' @param glue_template glue string
 #' @param section_id ID of the entries section to be printed as encoded by the `section` column of the `entries` table
+#' @param latexify logical, convert strings to latex? default = `FALSE`
 #' @return formatted string
 #' @export
 #' @importFrom dplyr filter
+#' @importFrom dplyr mutate
 #' @importFrom glue glue_data
 #' @keywords internal
 #' @importFrom rlang .data
-print_section <- function(cv, section_id, glue_template = "default"){
+print_section <- function(cv,
+                          section_id,
+                          glue_template = "default",
+                          latexify = FALSE){
 
 
   if(glue_template == "default"){
@@ -118,23 +130,33 @@ print_section <- function(cv, section_id, glue_template = "default"){
 
   section_data <- dplyr::filter(cv$entries_data, .data$section == section_id)
 
+  if(latexify == TRUE) {
+    section_data <- section_data %>%
+      dplyr::mutate(
+        institution = latexify(.data$institution, doublebackslash = FALSE),
+        title = latexify(.data$title, doublebackslash = FALSE)
+        )
+  }
+
   # Take entire entries data frame and removes the links in descending order
   # so links for the same position are right next to each other in number.
   for(i in 1:nrow(section_data)){
     for(col in c('title', 'description_bullets')){
-      #strip_res <- sanitize_links(cv, section_data[i, col])
       strip_res <- list(cv = cv, text = section_data[i, col])
       section_data[i, col] <- strip_res$text
       cv <- strip_res$cv
     }
   }
 
-  print(glue::glue_data(section_data, glue_template))
+  return(glue::glue_data(section_data, glue_template))
+  #print(glue::glue_data(section_data, glue_template))
 
-  invisible(strip_res$cv)
+  #invisible(strip_res$cv)
 }
 
-
+# print_text_block is a modified version of the print_text_block function in
+# Nick Strayer's datadrivencv package: https://github.com/nstrayer/datadrivencv
+# and licensed under the MIT License
 
 #' @title Print Text Block
 #' @description Prints out text block identified by a given label.
@@ -157,6 +179,10 @@ print_text_block <- function(cv, label){
 }
 
 
+# print_contact_info is a modified version of the print_contact_info function in
+# Nick Strayer's datadrivencv package: https://github.com/nstrayer/datadrivencv
+# and licensed under the MIT License
+
 #' @title Print Contact Info
 #' @description Contact information section with icons
 #' @param cv cv object
@@ -170,5 +196,22 @@ print_contact_info <- function(cv){
     "- <i class='fa fa-{icon}'></i> {contact}"
   ) %>% print()
 
+  invisible(cv)
+}
+
+
+
+#' Print Skills Block
+#'
+#' @param cv cv object
+#' @importFrom glue glue_data
+#' @return formatted string
+#' @export
+#' @keywords internal
+print_skills_block <- function(cv) {
+  glue_template <- "
+\\keywordsentry{{{id}}}{{{text}}}"
+
+  print(glue::glue_data(cv$skills_block, glue_template))
   invisible(cv)
 }
