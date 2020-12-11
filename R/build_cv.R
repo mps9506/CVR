@@ -76,6 +76,12 @@ build_cv <- function(full_name = "Michael Schramm",
     template_loc <- fs::path(output_dir, "svm-latex-cv.Rmd")
     tex_loc <- fs::path(output_dir, "svm-latex-cv.tex")
     lua_mb_loc <- fs::path(output_dir, "multiple-bibliographies.lua")
+    citeproc_path <- file.path(rmarkdown::find_pandoc()$dir, "pandoc-citeproc")
+    cat(
+      gsub("<<CITEPROC_PATH>>", citeproc_path, fixed = TRUE,
+           readLines(system.file("templates/svm-latex-cv/multiple-bibliographies.lua", package="CVR", mustWork = TRUE))),
+      file = lua_mb_loc, sep = "\n"
+    )
     pandoc_args <- paste0("--lua-filter=", lua_mb_loc)
     csl_loc <- fs::path(output_dir, "modapa.csl")
 

@@ -1,12 +1,10 @@
 --[[
 multiple-bibliographies – create multiple bibliographies
-
 Copyright © 2018-2020 Albert Krewinkel
-
+Modified 17/04/2020 by Mitchell O'Hara-Wild
 Permission to use, copy, modify, and/or distribute this software for any
 purpose with or without fee is hereby granted, provided that the above
 copyright notice and this permission notice appear in all copies.
-
 THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
 WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
 MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
@@ -29,7 +27,7 @@ local doc_meta = pandoc.Meta{}
 local refs_div = pandoc.Div({}, pandoc.Attr('refs'))
 
 local supports_quiet_flag = (function ()
-  local version = pandoc.pipe('pandoc-citeproc', {'--version'}, '')
+  local version = pandoc.pipe('<<CITEPROC_PATH>>', {'--version'}, '')
   local major, minor, patch = version:match 'pandoc%-citeproc (%d+)%.(%d+)%.?(%d*)'
   major, minor, patch = tonumber(major), tonumber(minor), tonumber(patch)
   return major > 0
@@ -52,7 +50,7 @@ local function resolve_doc_citations (doc)
   -- add dummy div to catch the created bibliography
   table.insert(doc.blocks, refs_div)
   -- resolve all citations
-  doc = run_json_filter(doc, 'pandoc-citeproc')
+  doc = run_json_filter(doc, '<<CITEPROC_PATH>>')
   -- remove catch-all bibliography
   table.remove(doc.blocks)
   -- restore bibliography to original value
@@ -80,19 +78,18 @@ local function meta_for_pandoc_citeproc (bibliography)
 end
 
 --- Create a bibliography for a given topic. This acts on all divs whose
--- ID starts with "refs", followed by nothing but underscores and
--- alphanumeric characters.
+-- ID matches "bibliography", and uses the path contained within the div
 local function create_topic_bibliography (div)
-  local name = div.identifier:match('^refs([_%w]*)$')
-  local bibfile = name and doc_meta['bibliography' .. name]
-  if not bibfile then
+  local is_bib = div.identifier == 'bibliography'
+  if not is_bib then
     return nil
   end
+  local bibfile = div.content[1].content[1].text
   local tmp_blocks = {pandoc.Para(all_cites), refs_div}
   local tmp_meta = meta_for_pandoc_citeproc(bibfile)
   local tmp_doc = pandoc.Pandoc(tmp_blocks, tmp_meta)
   local filter_args = {FORMAT, supports_quiet_flag and '-q' or nil}
-  local res = run_json_filter(tmp_doc, 'pandoc-citeproc', filter_args)
+  local res = run_json_filter(tmp_doc, '<<CITEPROC_PATH>>', filter_args)
   -- First block of the result contains the dummy paragraph, second is
   -- the refs Div filled by pandoc-citeproc.
   div.content = res.blocks[2].content
