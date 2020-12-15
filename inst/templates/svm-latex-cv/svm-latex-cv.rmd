@@ -101,7 +101,7 @@ cv_data %>% CVR::print_section('awards',
 ```{r}
 cv_data %>% CVR::print_section('committee',
                            glue_template = "
-{timeline}: {title} \n\n
+{timeline}: {title} \n
 # ")
 ```
 
@@ -109,7 +109,7 @@ cv_data %>% CVR::print_section('committee',
 ```{r}
 cv_data %>% CVR::print_section('j_peer_review',
                            glue_template = "
-*{title}* \n\n
+*{title}* \n
 ")
 ```
 
