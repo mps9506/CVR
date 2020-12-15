@@ -34,7 +34,7 @@ knitr::opts_chunk$set(
 ```{r}
 cv_data %>% CVR::print_section('research_positions',
                                glue_template = "
-{timeline} \\hfill {institution} \\newline {title} \\hfill {loc} \\newline
+{timeline} \\hfill {institution} \\newline {title} \\hfill {loc} \\newline \\newline
 ")
 ```
 
@@ -42,7 +42,7 @@ cv_data %>% CVR::print_section('research_positions',
 ```{r}
 cv_data %>% CVR::print_section('education',
                                glue_template = "
-{timeline} \\hfill {institution} \\newline {title} \\hfill {loc} \\newline
+{timeline} \\hfill {institution} \\newline {title} \\hfill {loc} \\newline \\newline
 ")
 ```
 
@@ -82,7 +82,7 @@ cv_data %>% CVR::print_text_block('skills')
 ```{r}
 cv_data %>% CVR::print_section('grant_project',
                            glue_template = "
-{timeline} *{institution}*: {title}. Amount: {loc}.
+{timeline} *{institution}*: {title}. Amount: {loc}. \\newline \\newline
 ")
 ```
 
