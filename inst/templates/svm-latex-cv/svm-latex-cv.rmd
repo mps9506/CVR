@@ -82,7 +82,7 @@ cv_data %>% CVR::print_text_block('skills')
 ```{r}
 cv_data %>% CVR::print_section('grant_project',
                            glue_template = "
-{timeline} *{institution}*: {title}. Amount: {loc}. \\begin{{itemize}} {description_bullets} \\end{{itemize}}
+{timeline} *{institution}*: {title}. Amount: {loc}.
 ")
 ```
 
