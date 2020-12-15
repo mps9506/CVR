@@ -37,7 +37,10 @@ cv_data %>% CVR::print_section('research_positions')
 
 ## Education
 ```{r}
-cv_data %>% CVR::print_section('education')
+cv_data %>% CVR::print_section('education',
+                               glue_template = "
+{timeline} \\hfill {institution} \\newline {title} \\hfill {loc} \\newline
+")
 ```
 
 ## Research Area
