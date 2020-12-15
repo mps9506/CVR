@@ -124,7 +124,7 @@ print_section <- function(cv,
 
   if(glue_template == "default"){
     glue_template <- "
-{timeline} \\hfill {institution} \\newline {title} \\hfill {loc} \\newline \\begin{{itemize}} {description_bullets} \\end{{itemize}} \\newline
+{timeline} \\hfill {institution} \\newline {title} \\hfill {loc} \\newline \\begin{{itemize}} {description_bullets} \\end{{itemize}}
 "
   }
 
