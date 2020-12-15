@@ -32,7 +32,10 @@ knitr::opts_chunk$set(
 ## Research Experience
 
 ```{r}
-cv_data %>% CVR::print_section('research_positions')
+cv_data %>% CVR::print_section('research_positions',
+                               glue_template = "
+{timeline} \\hfill {institution} \\newline {title} \\hfill {loc} \\newline
+")
 ```
 
 ## Education
