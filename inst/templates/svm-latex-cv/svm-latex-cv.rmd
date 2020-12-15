@@ -32,22 +32,22 @@ knitr::opts_chunk$set(
 ## Research Experience
 
 ```{r}
-# cv_data %>% CVR::print_section('research_positions')
+cv_data %>% CVR::print_section('research_positions')
 ```
 
 ## Education
 ```{r}
-# cv_data %>% CVR::print_section('education')
+cv_data %>% CVR::print_section('education')
 ```
 
 ## Research Area
 ```{r}
-# cv_data %>% CVR::print_text_block('research')
+cv_data %>% CVR::print_text_block('research')
 ```
 
 ## Skills
 ```{r}
-# cv_data %>% CVR::print_text_block('skills')
+cv_data %>% CVR::print_text_block('skills')
 ```
 
 ## Peer Reviewed Articles
@@ -74,36 +74,36 @@ knitr::opts_chunk$set(
 
 ## Grants and Projects
 ```{r}
-# cv_data %>% CVR::print_section('grant_project',
-#                            glue_template = "
-# {timeline} *{institution}*: {title}. Amount: {loc}. {description_bullets} \n\n
-# ")
+cv_data %>% CVR::print_section('grant_project',
+                           glue_template = "
+{timeline} *{institution}*: {title}. Amount: {loc}. {description_bullets} \n\n
+")
 ```
 
 ## Awards and Honors
 
 ```{r}
-# cv_data %>% CVR::print_section('awards',
-#                            glue_template = "
-# {title} \n\n
-# ")
+cv_data %>% CVR::print_section('awards',
+                           glue_template = "
+{title} \n\n
+")
 ```
 
 ## Service
 
 ### Review committees
 ```{r}
-# cv_data %>% CVR::print_section('committee',
-#                            glue_template = "
-# {timeline}: {title} \n\n
+cv_data %>% CVR::print_section('committee',
+                           glue_template = "
+{timeline}: {title} \n\n
 # ")
 ```
 
 ### Peer review
 ```{r}
-# cv_data %>% CVR::print_section('j_peer_review',
-#                            glue_template = "
-# *{title}* \n\n
-# ")
+cv_data %>% CVR::print_section('j_peer_review',
+                           glue_template = "
+*{title}* \n\n
+")
 ```
 
