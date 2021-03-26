@@ -75,11 +75,16 @@ build_cv <- function(full_name = "Michael Schramm",
 
     template_loc <- fs::path(output_dir, "svm-latex-cv.Rmd")
     tex_loc <- fs::path(output_dir, "svm-latex-cv.tex")
+
+    # Inject multiple-bibliographies lua filter
     lua_mb_loc <- fs::path(output_dir, "multiple-bibliographies.lua")
-    citeproc_path <- file.path(rmarkdown::find_pandoc()$dir, "pandoc-citeproc")
+    if(rmarkdown::pandoc_version() <= package_version("2.7.3")) {
+      warn(sprintf("Detected pandoc version %s, which may cause issues with bibliography_entries().
+Please update pandoc if you have any issues knitting bibliographies (this can be done by updating RStudio).", rmarkdown::pandoc_version()))
+    }
     cat(
-      gsub("<<CITEPROC_PATH>>", citeproc_path, fixed = TRUE,
-           readLines(system.file("templates/svm-latex-cv/multiple-bibliographies.lua", package="CVR", mustWork = TRUE))),
+      gsub("<<PANDOC_PATH>>", rmarkdown::find_pandoc()$dir, fixed = TRUE,
+           readLines(system.file("templates/svm-latex-cv/multiple-bibliographies.lua", package = "CVR", mustWork = TRUE), encoding = "UTF-8")),
       file = lua_mb_loc, sep = "\n"
     )
     pandoc_args <- paste0("--lua-filter=", lua_mb_loc)
