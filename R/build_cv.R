@@ -64,7 +64,7 @@ build_cv <- function(full_name = "Michael Schramm",
   ## where the rmd file is located not in the intermediate or output path
 
   ## get the rmd file path and other file paths for svm cv template
-  full_path <- fs::path(system.file(path, package = "CVR"))
+  full_path <- fs::path(system.file(path, package = "mpsCVR"))
   files <- list.files(full_path, recursive = TRUE)
   if (rmd_template == "yaac") {
     dir.create(fs::path(output_dir, "fonts"))
@@ -85,7 +85,7 @@ Please update pandoc if you have any issues knitting bibliographies (this can be
     }
     cat(
       gsub("<<PANDOC_PATH>>", rmarkdown::find_pandoc()$dir, fixed = TRUE,
-           readLines(system.file("templates/svm-latex-cv/multiple-bibliographies.lua", package = "CVR", mustWork = TRUE), encoding = "UTF-8")),
+           readLines(system.file("templates/svm-latex-cv/multiple-bibliographies.lua", package = "mpsCVR", mustWork = TRUE), encoding = "UTF-8")),
       file = lua_mb_loc, sep = "\n"
     )
     pandoc_args <- paste0("--lua-filter=", lua_mb_loc)
