@@ -24,7 +24,7 @@ knitr::opts_chunk$set(
 
 
 ```{r}
-cv_data %<>% CVR::print_text_block('research')
+cv_data %<>% mpsCVR::print_text_block('research')
 ```
 
 
@@ -35,7 +35,7 @@ cv_data %<>% CVR::print_text_block('research')
 cat("\\sectionTitle{Skills}{\\faTasks}
 \\begin{keywords}
 ")
-cv_data %<>% CVR::print_skills_block()
+cv_data %<>% mpsCVR::print_skills_block()
 cat("\\end{keywords}")
 ```
 
@@ -48,7 +48,7 @@ knitr::raw_latex("\\sectionTitle{Experience}{\\faSuitcase}\\begin{experiences}
 ```
 
 ```{r}
-knitr::raw_latex(cv_data %>% CVR::print_section('research_positions',
+knitr::raw_latex(cv_data %>% mpsCVR::print_section('research_positions',
                                 glue_template = " 
 \\experience
 {{{end}}}{{{title}}}{{{institution}}}{{{loc}}}{{{start}}}
@@ -72,7 +72,7 @@ knitr::raw_latex("\\end{experiences}")
 cat("\\sectionTitle{Education}{\\faGraduationCap}
 \\begin{scholarship}
 ")
-cv_data %>% CVR::print_section('education',
+cv_data %>% mpsCVR::print_section('education',
                                 glue_template = "
 \\scholarshipentry
 {{{end}}}{{{title}, {institution}}}
