@@ -13,11 +13,11 @@ fontawesome: yes
 phone: 910 232-3760
 address: 578 John Kimbrough Blvd · 2260 TAMU · College Station, TX 77843
 updated: no
-bibliography_peer_review: "`r paste0(output_dir,'/peer_review.bib')`"
-bibliography_tech_report: "`r paste0(output_dir, '/tech_report.bib')`"
-bibliography_conference: "`r paste0(output_dir,'/conference.bib')`"
-bibliography_software: "`r paste0(output_dir,'/software.bib')`"
-bibliography_datasets: "`r paste0(output_dir,'/datasets.bib')`"
+bibliography_peer_review: "`r peer_review_path`"
+bibliography_tech_report: "`r tech_report_path`"
+bibliography_conference: "`r conf_path`"
+bibliography_software: "`r soft_path`"
+bibliography_datasets: "`r data_path`"
 nocite: '@*'
 csl: "`r csl_loc`"
 ---
@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
   results='asis', 
   echo = FALSE
 )
-#library(magrittr) # For the pipe
+
 ```
 
 ## Research Experience
@@ -57,6 +57,7 @@ cv_data %>% CVR::print_text_block('skills')
 ```
 
 ## Peer Reviewed Articles
+
 ::: {#refs_peer_review}
 :::
 
