@@ -28,13 +28,13 @@ devtools::install_github("mps9506/CVR")
 ```
 ## About
 
-CVR is a personal R package to automate generation of my CV and resume. CVR is based heavily on [datadrivencv](https://github.com/nstrayer/datadrivencv), [vitae](https://github.com/mitchelloharawild/vitae), and templates provide by [svm-r-markdown-templates](https://github.com/svmiller/svm-r-markdown-templates). There are no plans to release this package since it is heavily customized for my needs but does not provide any additional functionality to the above codebases.
+mpsCVR is a personal R package to automate generation of my CV and resume. CVR is based heavily on [datadrivencv](https://github.com/nstrayer/datadrivencv), [vitae](https://github.com/mitchelloharawild/vitae), and templates provide by [svm-r-markdown-templates](https://github.com/svmiller/svm-r-markdown-templates). There are no plans to release this package since it is heavily customized for my needs but does not provide any additional functionality to the above codebases.
 
 The package uses `BibEntry` objects from [RefManageR](https://github.com/ropensci/RefManageR) to generate the list of works in the CV. Other entries are retrieved from Google Sheets following the general format used by [datadrivencv](https://github.com/nstrayer/datadrivencv).
 
 ```{r example, eval=FALSE}
 
-library(CVR)
+library(mpsCVR)
 library(RefManageR)
 
 ### Generate BibEntry objects

@@ -4,7 +4,6 @@
 # CVR
 
 <!-- badges: start -->
-
 <!-- badges: end -->
 
 ## Installation
@@ -19,8 +18,8 @@ devtools::install_github("mps9506/CVR")
 
 ## About
 
-CVR is a personal R package to automate generation of my CV and resume.
-CVR is based heavily on
+mpsCVR is a personal R package to automate generation of my CV and
+resume. CVR is based heavily on
 [datadrivencv](https://github.com/nstrayer/datadrivencv),
 [vitae](https://github.com/mitchelloharawild/vitae), and templates
 provide by
@@ -36,8 +35,7 @@ following the general format used by
 [datadrivencv](https://github.com/nstrayer/datadrivencv).
 
 ``` r
-
-library(CVR)
+library(mpsCVR)
 library(RefManageR)
 
 ### Generate BibEntry objects
