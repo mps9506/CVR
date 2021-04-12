@@ -24,6 +24,7 @@
 #' @importFrom rmarkdown render
 #' @importFrom bookdown pdf_document2
 #' @importFrom spelling spell_check_files
+#' @importFrom rlang warn
 build_cv <- function(full_name = "Michael Schramm",
                      data_location = NULL,
                      peer_review = NULL,

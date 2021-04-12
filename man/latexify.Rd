@@ -4,7 +4,8 @@
 \alias{latexify}
 \title{Pipe operator}
 \usage{
-latexify(x, doublebackslash = TRUE, dashdash = TRUE, quotes = c("straight", "curved"), packages = c("fontenc", "textcomp"))
+latexify(x, doublebackslash = TRUE, dashdash = TRUE, quotes =
+  c("straight", "curved"), packages = c("fontenc", "textcomp"))
 }
 \description{
 See \code{dplR::\link[dplR:latexify]{latexify}} for details.

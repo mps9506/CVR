@@ -19,7 +19,7 @@ build_cv(
   yml = list(title = "CV", author = "Michael Schramm", firstname = "Michael", lastname
     = "Schramm", github = "mps9506", phone = "910-232-3760", address = "Bryan, Texas",
     email = "mpschramm@gmail.com", tagline =
-    "Researcher | Water Quality, Watersheds, and Policy")
+    "Researcher | Watersheds, water quality and open science")
 )
 }
 \arguments{

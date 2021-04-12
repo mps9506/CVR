@@ -7,5 +7,6 @@
 #' @keywords internal
 #' @export
 #' @importFrom dplR latexify
-#' @usage latexify(x, doublebackslash = TRUE, dashdash = TRUE, quotes = c("straight", "curved"), packages = c("fontenc", "textcomp"))
+#' @usage latexify(x, doublebackslash = TRUE, dashdash = TRUE, quotes =
+#'   c("straight", "curved"), packages = c("fontenc", "textcomp"))
 NULL
