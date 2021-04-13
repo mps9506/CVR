@@ -19,7 +19,7 @@
 
 \ProvidesClass{yaac-another-awesome-cv}[2020/03/24  v2.2.1 'YAAC: Another Awesome CV' Class]
 
-\def\@@ptsize{10pt}
+\def\@@ptsize{12pt}
 
 \DeclareOption{10pt}{\def\@@ptsize{10pt}}
 \DeclareOption{11pt}{\def\@@ptsize{11pt}}
