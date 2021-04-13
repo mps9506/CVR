@@ -57,7 +57,6 @@ cv_data %>% mpsCVR::print_text_block('skills')
 ```
 
 ## Peer Reviewed Articles
-
 ::: {#refs_peer_review}
 :::
 
