@@ -6,11 +6,11 @@
 #'
 #' @param full_name character string, my name.
 #' @param data_location character string, link to google sheets document.
-#' @param peer_review Object of class `BibEntry`.
-#' @param tech_report Object of class `BibEntry`.
-#' @param conference Object of class `BibEntry`.
-#' @param software Object of class `BibEntry`.
-#' @param datasets Object of class `BibEntry`.
+#' @param peer_review character string, file path to .bib file.
+#' @param tech_report character string, file path to .bib file.
+#' @param conference character string, file path to .bib file.
+#' @param software character string, file path to .bib file.
+#' @param datasets character string, file path to .bib file.
 #' @param rmd_template character string indicating path to rmarkdown template or one of `c('svm_cv', 'yaac')`.
 #' @param output_file_name character string for the name of the output document.
 #' @param output_dir character string for the name of the output directory, defaults to current working directory.
@@ -19,19 +19,18 @@
 #'
 #' @return files written to the current directory
 #' @export
-#' @importFrom fs path
-#' @importFrom RefManageR ReadZotero WriteBib
+#' @importFrom fs path path_package path_wd
 #' @importFrom rmarkdown render
 #' @importFrom bookdown pdf_document2
 #' @importFrom spelling spell_check_files
 #' @importFrom rlang warn
 build_cv <- function(full_name = "Michael Schramm",
                      data_location = NULL,
-                     peer_review = NULL,
-                     tech_report = NULL,
-                     conference = NULL,
-                     software = NULL,
-                     datasets = NULL,
+                     peer_review = path_wd("peer_review.bib"),
+                     tech_report = path_wd("tech_report.bib"),
+                     conference = path_wd("conference.bib"),
+                     software = path_wd("software.bib"),
+                     datasets = path_wd("datasets.bib"),
                      rmd_template = c("svm_cv", "yaac"),
                      output_file_name = "cv.pdf",
                      output_dir = getwd(),
@@ -64,7 +63,7 @@ build_cv <- function(full_name = "Michael Schramm",
   ## where the rmd file is located not in the intermediate or output path
 
   ## get the rmd file path and other file paths for svm cv template
-  full_path <- fs::path(system.file(path, package = "mpsCVR"))
+  full_path <- path_package("mpsCVR", path)
   files <- list.files(full_path, recursive = TRUE)
   if (rmd_template == "yaac") {
     dir.create(fs::path(output_dir, "fonts"))
@@ -78,6 +77,8 @@ build_cv <- function(full_name = "Michael Schramm",
     tex_loc <- fs::path(output_dir, "svm-latex-cv.tex")
 
     # Inject multiple-bibliographies lua filter
+    # code from Mitchell O'Hara-Wild's vitae package
+    # https://github.com/mitchelloharawild/vitae
     lua_mb_loc <- fs::path(output_dir, "multiple-bibliographies.lua")
     if(rmarkdown::pandoc_version() <= package_version("2.7.3")) {
       warn(sprintf("Detected pandoc version %s, which may cause issues with bibliography_entries().
@@ -85,7 +86,7 @@ Please update pandoc if you have any issues knitting bibliographies (this can be
     }
     cat(
       gsub("<<PANDOC_PATH>>", rmarkdown::find_pandoc()$dir, fixed = TRUE,
-           readLines(system.file("templates/svm-latex-cv/multiple-bibliographies.lua", package = "mpsCVR", mustWork = TRUE), encoding = "UTF-8")),
+           readLines(fs::path_package("mpsCVR", "templates/svm-latex-cv/multiple-bibliographies.lua"), encoding = "UTF-8")),
       file = lua_mb_loc, sep = "\n"
     )
     pandoc_args <- paste0("--lua-filter=", lua_mb_loc)
@@ -110,34 +111,29 @@ Please update pandoc if you have any issues knitting bibliographies (this can be
   cv_data <- create_CV_object(data_location = data_location)
 
   if(!is.null(peer_review)) {
-    peer_review_path <- paste0(output_dir, "/peer_review.bib")
-    RefManageR::WriteBib(peer_review, file = peer_review_path)
+    peer_review_path <- peer_review
   }
 
   if(!is.null(tech_report)) {
-    tech_report_path <- paste0(output_dir, "/tech_report.bib")
-    RefManageR::WriteBib(tech_report, file = tech_report_path)
+    tech_report_path <- tech_report
   }
 
   if(!is.null(conference)) {
-    conf_path <- paste0(output_dir, "/conference.bib")
-    RefManageR::WriteBib(conference, file = conf_path)
+    conf_path <- conference
   }
 
   if(!is.null(software)) {
-    soft_path <- paste0(output_dir, "/software.bib")
-    RefManageR::WriteBib(software, file = soft_path)
+    soft_path <- software
   }
 
   if(!is.null(datasets)) {
-    data_path <- paste0(output_dir, "/datasets.bib")
-    RefManageR::WriteBib(datasets, file = data_path)
+    data_path <- datasets
   }
 
 
   ## yaac needs to use lualatex
   if (rmd_template == "svm_cv") {
-    latex_engine <- "pdflatex"
+    latex_engine <- "xelatex"
   }
   else {
     latex_engine <- "lualatex"
@@ -147,7 +143,7 @@ Please update pandoc if you have any issues knitting bibliographies (this can be
   if (rmd_template %in% c("svm_cv", "yaac")) {
 
     rmarkdown::render(input = template_loc,
-                      bookdown::pdf_document2(latex_engine = latex_engine,
+                      output_format = bookdown::pdf_document2(latex_engine = latex_engine,
                                               template = tex_loc,
                                               number_sections = FALSE,
                                               pandoc_args = pandoc_args,
