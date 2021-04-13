@@ -7,9 +7,9 @@ github: "`r yml$github`"
 phone: "`r yml$phone`"
 address: "`r yml$address`"
 email: "`r yml$email`"
-bibliography_peer_review: peer_review.bib
-bibliography_tech_report: tech_report.bib
-bibliography_software: software.bib
+bibliography_peer_review: "`r peer_review_path`"
+bibliography_tech_report: "`r tech_report_path`"
+bibliography_software: "`r soft_path`"
 nocite: '@*'
 csl: "`r csl_loc`"
 ---

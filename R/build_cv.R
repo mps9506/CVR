@@ -26,11 +26,11 @@
 #' @importFrom rlang warn
 build_cv <- function(full_name = "Michael Schramm",
                      data_location = NULL,
-                     peer_review = path_wd("peer_review.bib"),
-                     tech_report = path_wd("tech_report.bib"),
-                     conference = path_wd("conference.bib"),
-                     software = path_wd("software.bib"),
-                     datasets = path_wd("datasets.bib"),
+                     peer_review = NULL,
+                     tech_report = NULL,
+                     conference = NULL,
+                     software = NULL,
+                     datasets = NULL,
                      rmd_template = c("svm_cv", "yaac"),
                      output_file_name = "cv.pdf",
                      output_dir = getwd(),
@@ -100,7 +100,19 @@ Please update pandoc if you have any issues knitting bibliographies (this can be
     template_loc <- fs::path(output_dir, "yaac.Rmd")
     tex_loc <- fs::path(output_dir, "yaac.tex")
     doc_class <- fs::path(output_dir, "yaac-another-awesome-cv.cls")
+    # Inject multiple-bibliographies lua filter
+    # code from Mitchell O'Hara-Wild's vitae package
+    # https://github.com/mitchelloharawild/vitae
     lua_mb_loc <- fs::path(output_dir, "multiple-bibliographies.lua")
+    if(rmarkdown::pandoc_version() <= package_version("2.7.3")) {
+      warn(sprintf("Detected pandoc version %s, which may cause issues with bibliography_entries().
+Please update pandoc if you have any issues knitting bibliographies (this can be done by updating RStudio).", rmarkdown::pandoc_version()))
+    }
+    cat(
+      gsub("<<PANDOC_PATH>>", rmarkdown::find_pandoc()$dir, fixed = TRUE,
+           readLines(fs::path_package("mpsCVR", "templates/yaac/multiple-bibliographies.lua"), encoding = "UTF-8")),
+      file = lua_mb_loc, sep = "\n"
+    )
     pandoc_args <- paste0("--lua-filter=", lua_mb_loc)
     csl_loc <- fs::path(output_dir, "modapa.csl")
 
