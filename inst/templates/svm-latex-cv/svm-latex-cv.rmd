@@ -2,8 +2,7 @@
 title: "CV"
 author: "`r full_name`"
 email: mpschramm@gmail.com
-fontfamily: mathpazo
-fontfamilyoptions: sc, osf
+fontfamily: EB Garamond
 fontsize: 11pt
 linkcolor: blue
 urlcolor: blue
@@ -29,7 +28,8 @@ knitr::opts_chunk$set(
 
 ```
 
-## Research Experience
+
+# Research Experience
 
 ```{r}
 cv_data %>% mpsCVR::print_section('research_positions',
@@ -38,7 +38,8 @@ cv_data %>% mpsCVR::print_section('research_positions',
 ")
 ```
 
-## Education
+# Education
+
 ```{r}
 cv_data %>% mpsCVR::print_section('education',
                                glue_template = "
@@ -46,39 +47,47 @@ cv_data %>% mpsCVR::print_section('education',
 ")
 ```
 
-## Research Area
+# Research Area
+
 ```{r}
 cv_data %>% mpsCVR::print_text_block('research')
 ```
 
-## Skills
+# Skills
+
 ```{r}
 cv_data %>% mpsCVR::print_text_block('skills')
 ```
 
-## Peer Reviewed Articles
+# Peer Reviewed Articles
+
 ::: {#refs_peer_review}
 :::
 
 
-## Technical Reports
+# Technical Reports
+
 ::: {#refs_tech_report}
 :::
 
-## Presentations
+# Presentations
+
 ::: {#refs_conference}
 :::
 
-## Published Software
+# Published Software
+
 ::: {#refs_software}
 :::
 
-## Published Datasets
+# Published Datasets
+
 ::: {#refs_datasets}
 :::
 
 
-## Grants and Projects
+# Grants and Projects
+
 ```{r}
 cv_data %>% mpsCVR::print_section('grant_project',
                            glue_template = "
@@ -86,7 +95,7 @@ cv_data %>% mpsCVR::print_section('grant_project',
 ")
 ```
 
-## Awards and Honors
+# Awards and Honors
 
 ```{r}
 cv_data %>% mpsCVR::print_section('awards',
@@ -95,17 +104,19 @@ cv_data %>% mpsCVR::print_section('awards',
 ")
 ```
 
-## Service
+# Service
 
-### Review committees
+## Review committees
+
 ```{r}
 cv_data %>% mpsCVR::print_section('committee',
                            glue_template = "
 {timeline}: {title} \n
-# ")
+")
 ```
 
-### Peer review
+## Peer review
+
 ```{r}
 cv_data %>% mpsCVR::print_section('j_peer_review',
                            glue_template = "
