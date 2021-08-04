@@ -15,7 +15,7 @@
 #' @param output_file_name character string for the name of the output document.
 #' @param output_dir character string for the name of the output directory, defaults to current working directory.
 #' @param spell_check logical use the spell_check package to spell check output? defaults to FALSE
-#' @param yml named list of some yml parameters to pass to the rmd. There is probably a better way to do this.
+#' @param yml named list of some parameters to pass to the rmd.
 #'
 #' @return files written to the current directory
 #' @export
@@ -65,9 +65,9 @@ build_cv <- function(full_name = "Michael Schramm",
   ## get the rmd file path and other file paths for svm cv template
   full_path <- path_package("mpsCVR", path)
   files <- list.files(full_path, recursive = TRUE)
-  if (rmd_template == "yaac") {
-    dir.create(fs::path(output_dir, "fonts"))
-  }
+
+  dir.create(fs::path(output_dir, "fonts"))
+
   file.copy(from = fs::path(full_path, files),
             to = fs::path(output_dir, files))
 
@@ -145,7 +145,7 @@ Please update pandoc if you have any issues knitting bibliographies (this can be
 
   ## yaac needs to use lualatex
   if (rmd_template == "svm_cv") {
-    latex_engine <- "xelatex"
+    latex_engine <- "lualatex"
   }
   else {
     latex_engine <- "lualatex"
@@ -164,7 +164,8 @@ Please update pandoc if you have any issues knitting bibliographies (this can be
                       output_file = output_file_name,
                       output_dir = output_dir,
                       intermediates_dir = output_dir,
-                      clean = TRUE)
+                      clean = TRUE,
+                      params = yml)
   }
 
 
