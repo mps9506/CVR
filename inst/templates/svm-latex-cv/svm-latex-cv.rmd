@@ -1,7 +1,12 @@
 ---
-title: "CV"
+params:
+  settitle: CV
+  setphone: 910-232-3760
+  setaddress: Bryan, TX
+  setemail: mpschramm@gmail.com
+title: "`r params$settitle`"
 author: "`r full_name`"
-email: mpschramm@gmail.com
+email: "`r params$setemail`"
 fontfamily: EB Garamond
 fontsize: 11pt
 linkcolor: blue
@@ -9,8 +14,8 @@ urlcolor: blue
 geometry: margin=1in
 github: mps9506
 fontawesome: yes
-phone: 910 232-3760
-address: 578 John Kimbrough Blvd · 2260 TAMU · College Station, TX 77843
+phone: "`r params$setphone`"
+address: "`r params$setaddress`"
 updated: no
 bibliography_peer_review: "`r peer_review_path`"
 bibliography_tech_report: "`r tech_report_path`"
