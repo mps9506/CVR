@@ -112,11 +112,13 @@
 \colorlet{symbolcolor}{linkcolor!85}
 
 % Setup hyperref package, and colours for links
-%\definecolor{linkcolour}{rgb}{0,0.2,0.6}
+\definecolor{linkcolour}{rgb}{0,0.2,0.6}
 
 \if@showLinks
   \hypersetup{%
-    breaklinks
+    colorlinks=true,
+    breaklinks=true,
+    urlcolor=linkcolour
   }%
 \else
   \hypersetup{%
@@ -203,7 +205,7 @@
 \newcommand{\websiteSymbol}{\faLink}
 
 
-\newcommand\link[2]{\color{linkcolor}\href{#1}{#2}\color{Black} }
+\newcommand\link[2]{\color{Black}\href{#1}{#2}\color{Black} }
 \newcommand\important[1]{\textbf #1}
 
 % Create a tag
